@@ -78,7 +78,7 @@ namespace API\Payment {
 		{
 			if(!preg_match('/^([\w\-]{1,36})$/D', $kass_id))
 				throw new \InvalidArgumentException("kass_id is not valid");
-				
+			
 			$this->_kass_id 	= $kass_id;
 			$this->_options = array_merge($this->_options, $options);
 		}
@@ -100,9 +100,9 @@ namespace API\Payment {
 				$data .= sprintf('<input type="hidden" name="%s" value="%s">', $name, $value);
 
 			return sprintf('<form method="POST" action="%s" enctype="utf-8">%s %s</form>',
-					$this->_sci_url,
-					$data, 
-					$submit);
+				$this->_sci_url,
+				$data, 
+				$submit);
 		}
 
 
@@ -136,15 +136,15 @@ namespace API\Payment {
 				if(empty($params[$key]))
 					throw new \InvalidArgumentException(sprintf("Required parameter '%s' missing or empty. See the documentation.", $key));
 
-			foreach ($params as $param => $value)
-				if(isset($this->validate_keys[$param]))
-					if(!preg_match($this->validate_keys[$param], $value))
-						throw new \InvalidArgumentException(sprintf("Parameter '%s' not valid. See the documentation.", $param));
+				foreach ($params as $param => $value)
+					if(isset($this->validate_keys[$param]))
+						if(!preg_match($this->validate_keys[$param], $value))
+							throw new \InvalidArgumentException(sprintf("Parameter '%s' not valid. See the documentation.", $param));
 
-			$params['ik_co_id'] = $this->_kass_id;
+						$params['ik_co_id'] = $this->_kass_id;
 
-			return $params;
-		}
+						return $params;
+					}
 
 
 		/**
@@ -159,12 +159,12 @@ namespace API\Payment {
 
 			switch ($this->_options['signAlg']) {
 				case 'sha256':
-					$data = hash('sha256',$signString, true);
-					break;
+				$data = hash('sha256',$signString, true);
+				break;
 
 				default:
-					$data = md5($signString, true);	
-					break;
+				$data = md5($signString, true);	
+				break;
 			}
 
 			return base64_encode($data);
