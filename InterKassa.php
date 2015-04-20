@@ -172,7 +172,7 @@ namespace API\Payment {
 
 
 		/**
-		* inreractive
+		* interactive
 		* @param array $params
 		* @return array $params
 		*/
